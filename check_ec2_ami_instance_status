@@ -19,14 +19,17 @@ then
 fi
 ec2_instance=$1
 
-if [ -z $2 ]
+if [[ -z $2 && -z $EC2_REGION ]]
 then
-  region="eu-west-1"
+  EC2_REGION="eu-west-1"
 else
-  region=$2
+  if [[ -z $EC2_REGION ]]
+  then
+    EC2_REGION=$2
+  fi
 fi
 
-state=`${EC2_HOME}/bin/ec2-describe-instance-status -K ${EC2_PRIVATE_KEY} -C ${EC2_CERT} --region $region $ec2_instance | head -1 | awk '{ print $5 }'`
+state=`${EC2_HOME}/bin/ec2-describe-instance-status -K ${EC2_PRIVATE_KEY} -C ${EC2_CERT} --region $EC2_REGION $ec2_instance | head -1 | awk '{ print $5 }'`
 
 # Nagios status are
 # 0 - All is ok
