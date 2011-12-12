@@ -1,5 +1,5 @@
 # Nagios plugin configuration
-NAGIOS_AMAZON_PLUGIN_PATH=/usr/local/nagios/libexec/amazon
+NAGIOS_AMAZON_PLUGIN_PATH=/usr/local/nagios/libexec/nagios-ec2-plugins
 AMAZON_AMI_KEY_PATH=${NAGIOS_AMAZON_PLUGIN_PATH}/keys
 
 # Global EC2 AMI configuration
