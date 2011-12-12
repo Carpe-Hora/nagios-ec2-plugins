@@ -1,0 +1,66 @@
+#!/bin/bash
+
+# This script will check wether or not specified instance need to be reboot due to an amazon maintenance
+
+if [ -z $1 ]
+then
+  echo "No instance specified"
+  # Exit unknown status
+  exit 3
+fi
+
+if [ -z $2 ]
+then
+  region="eu-west-1"
+else
+  region=$2
+fi
+
+ec2_instance=$1
+
+state=`ec2-describe-instance-status --region $region $ec2_instance | head -1 | awk '{ print $5 }'`
+
+# Nagios status are
+# 0 - All is ok
+# 1 - Warning
+# 2 - Error
+# 3 - unknown
+return_status=3
+
+case $state in
+  0)
+    return_message="instance is pending (maybe starting)"
+    return_status=3
+    ;;
+  16)
+    return_message="instance is running"
+    return_status=0
+    ;;
+  32)
+    return_message="instance is shutting down !!"
+    return_status=1
+    ;;
+  48)
+    return_message="instance is terminated !!"
+    return_status=2
+    ;;
+  64)
+    return_message="instance is stopping !!"
+    return_status=1
+    ;;
+  80)
+    return_message="instance is stopped !!"
+    return_status=2
+    ;;
+  272)
+    return_message="instance is in an unknown state ..."
+    return_status=3
+    ;;
+  *)
+    return_message="unknown return code"
+    return_status=3
+    ;;
+esac
+
+echo $return_message
+exit $return_status
