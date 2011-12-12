@@ -1,6 +1,15 @@
 #!/bin/bash
 
-# This script will check wether or not specified instance need to be reboot due to an amazon maintenance
+# This script will check specified instance status
+# TODO Allow user to specified desired status
+
+# Get script directory
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ] ; do SOURCE="$(readlink "$SOURCE")"; done
+DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+
+# Load configuration
+source ${DIR}/ami.cnf
 
 if [ -z $1 ]
 then
@@ -8,6 +17,7 @@ then
   # Exit unknown status
   exit 3
 fi
+ec2_instance=$1
 
 if [ -z $2 ]
 then
@@ -16,9 +26,7 @@ else
   region=$2
 fi
 
-ec2_instance=$1
-
-state=`ec2-describe-instance-status --region $region $ec2_instance | head -1 | awk '{ print $5 }'`
+state=`${EC2_HOME}/bin/ec2-describe-instance-status -K ${EC2_PRIVATE_KEY} -C ${EC2_CERT} --region $region $ec2_instance | head -1 | awk '{ print $5 }'`
 
 # Nagios status are
 # 0 - All is ok
