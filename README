@@ -1,0 +1,8 @@
+Install JRE
+===========
+
+the Java Runtime Environment is mandatory to run AMI. On debian install it with
+* apt-get install sun-java6-jre
+You should accept the license.
+
+
