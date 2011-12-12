@@ -11,7 +11,7 @@ fi
 export EC2_REGION="eu-west-1"
 
 # Global ELB configuration
-AWS_ELB_HOME=${NAGIOS_AMAZON_PLUGIN_PATH}/tools
+export AWS_ELB_HOME=${NAGIOS_AMAZON_PLUGIN_PATH}/tools
 
 EC2_PRIVATE_KEY=${AMAZON_AMI_KEY_PATH}/****my-cert-key****.key
 EC2_CERT=${AMAZON_AMI_KEY_PATH}/****my-cert****.crt
