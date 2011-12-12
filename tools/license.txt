@@ -89,8 +89,6 @@ NOT LIMITED TO LOSS OF GOODWILL, BUSINESS INTERRUPTION, LOST PROFITS OR DATA,
 COMPUTER FAILURE OR MALFUNCTION, OR ANY OTHER COMM ERCIAL DAMAGES OR LOSSES),
 EVEN IF THE LICENSOR HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
-
-
 Note: Other license terms may apply to certain, identified software files
 contained within or distributed with the accompanying software if such terms
 are included in the notice folder accompanying the file.  Such other license
