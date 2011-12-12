@@ -6,7 +6,7 @@ AMAZON_AMI_KEY_PATH=${NAGIOS_AMAZON_PLUGIN_PATH}/keys
 EC2_HOME=${NAGIOS_AMAZON_PLUGIN_PATH}/tools
 if [ -z $JAVA_HOME ]
 then
-  JAVA_HOME=/usr
+  export JAVA_HOME=/usr
 fi
 export EC2_REGION="eu-west-1"
 
