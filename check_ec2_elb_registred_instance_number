@@ -34,7 +34,7 @@ if [ -z $2 ]
 then
   if [ $ELB_TRY_FIRST_LB ]
   then
-    lb_name=`${AWS_ELB_HOME}/bin/elb-describe-lbs --region=${EC2_REGION} | head -1 |  awk '{ print $2 }'`
+    lb_name=`${AWS_ELB_HOME}/bin/elb-describe-lbs --region=${EC2_REGION} -C ${EC2_CERT} -K ${EC2_PRIVATE_KEY} | head -1 |  awk '{ print $2 }'`
   else
     echo "No Load Balancer name specified"
     # Exit unknown status
@@ -45,7 +45,7 @@ else
 fi
 
 
-instance_running_number=`${EC2_HOME}/bin/elb-describe-instance-health ${lb_name} | grep InService | wc -l`
+instance_running_number=`${EC2_HOME}/bin/elb-describe-instance-health ${lb_name} --region=${EC2_REGION} -C ${EC2_CERT} -K ${EC2_PRIVATE_KEY} | grep InService | wc -l`
 
 
 # Nagios status are
