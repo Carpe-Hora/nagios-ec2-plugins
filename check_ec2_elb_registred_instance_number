@@ -8,7 +8,7 @@ while [ -h "$SOURCE" ] ; do SOURCE="$(readlink "$SOURCE")"; done
 DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
 # Load configuration
-source ${DIR}/ami.cnf
+source ${DIR}/aws.cnf
 
 # Get minimum number of instance registred on load balancer desired
 if [ -z $1 ]

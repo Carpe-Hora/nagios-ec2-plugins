@@ -8,7 +8,7 @@ while [ -h "$SOURCE" ] ; do SOURCE="$(readlink "$SOURCE")"; done
 DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
 # Load configuration
-source ${DIR}/ami.cnf
+source ${DIR}/aws.cnf
 
 # Get region
 if [[ -z $3 && -z $EC2_REGION ]]

@@ -1,8 +1,21 @@
 Install JRE
 ===========
 
-the Java Runtime Environment is mandatory to run AMI. On debian install it with
+the Java Runtime Environment is mandatory to run AWS. On debian install it with
+
 * apt-get install sun-java6-jre
 You should accept the license.
 
+Configuration
+=============
+You have to edit aws.cnf in order to specify
+
+* NAGIOS_AMAZON_PLUGIN_PATH : Your plugin folder. Can be replace by somethink like that
+  SOURCE="${BASH_SOURCE[0]}"
+  while [ -h "$SOURCE" ] ; do SOURCE="$(readlink "$SOURCE")"; done
+  NAGIOS_AMAZON_PLUGIN_PATH="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+* EC2_PRIVATE_KEY : Path to your EC2 private key 
+* EC2_CERT : Path to your EC2 certificate
+
+You have to use a couple of private key/certificate files to connect to AWS. You can put them in a _keys_ folder
 

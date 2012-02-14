@@ -9,7 +9,7 @@ while [ -h "$SOURCE" ] ; do SOURCE="$(readlink "$SOURCE")"; done
 DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
 # Load configuration
-source ${DIR}/ami.cnf
+source ${DIR}/aws.cnf
 
 if [ -z $1 ]
 then
