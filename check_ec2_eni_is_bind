@@ -1,0 +1,59 @@
+#!/bin/bash
+
+# This script will check specified instance status
+# TODO Allow user to specified desired status
+
+# Get script directory
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ] ; do SOURCE="$(readlink "$SOURCE")"; done
+DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+
+# Load configuration
+source ${DIR}/aws.cnf
+
+if [ -z $1 ]
+then
+  echo "No eni identifier specified"
+  # Exit unknown status
+  exit 3
+fi
+eni_id=$1
+
+if [[ -z $2 && -z $EC2_REGION ]]
+then
+  EC2_REGION="eu-west-1"
+else
+  if [[ -z $EC2_REGION ]]
+  then
+    EC2_REGION=$2
+  fi
+fi
+
+state=`${EC2_HOME}/bin/ec2-describe-network-interface-attribute ${eni_id} -a -K ${EC2_PRIVATE_KEY} -C ${EC2_CERT} --region ${EC2_REGION} --show-empty-fields|grep 'ATTACHMENT'` 
+ec2_instance=`echo ${state}|awk '{ print $2 }'`
+state=`echo ${state}|wc -l`
+
+# Nagios status are
+# 0 - All is ok
+# 1 - Warning
+# 2 - Error
+# 3 - unknown
+return_status=3
+
+case $state in
+  0)
+    return_message="Interface is not bind"
+    return_status=2
+    ;;
+  1)
+    return_message="Interface is bind on ${ec2_instance} instance"
+    return_status=0
+    ;;
+  *)
+    return_message="unknown return code"
+    return_status=3
+    ;;
+esac
+
+echo $return_message
+exit $return_status
