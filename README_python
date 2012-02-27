@@ -7,9 +7,21 @@ It's mandatory to have a running installation of python with pynag and boto.
 You can download pynag here : http://code.google.com/p/pynag/downloads/list
 You can download boto here : https://github.com/boto/boto/downloads
 
+Installation
+============
+
+Install boto
+  easy_install boto
+
+Install pynag
+  # wget http://pynag.googlecode.com/files/pynag-0.4.tar.gz
+  # cd pynag-0.4
+  # python setup.py install
+
+
 Configuration
 =============
-You have to edit /etc/boto.cfg in order to specify something like that
+You have to edit (or create) /etc/boto.cfg in order to specify something like that
 
   [Credentials]
   aws_access_key_id = <MY_AWS_ACCESS_KEY_ID>
