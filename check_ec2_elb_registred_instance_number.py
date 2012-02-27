@@ -31,17 +31,22 @@ except:
 
 number_of_instance=len(instances_health)
 number_of_running_instance=0
-number_of_fail_instance=0
 for instance_health in instances_health:
   if instance_health.state == 'InService':
     number_of_running_instance += 1
-  else:
-    number_of_fail_instance += 1
 
 if np["numbers"] == None:
   desired_number = number_of_instance/2
 else:
   desired_number = int(np["numbers"])
+
+# Performance Data
+warn_perfdata = desired_number*1.25
+if warn_perfdata > desired_number:
+  warn_perfdata = desired_number
+
+np.add_perfdata("running", number_of_running_instance, None, warn_perfdata, desired_number, 0, number_of_instance)
+np.add_perfdata("all", number_of_instance)
 
 # Return value
 if desired_number > number_of_running_instance:
